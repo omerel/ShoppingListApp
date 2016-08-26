@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4f5658"
+    tools:context="com.example.omer.shoppinglist.OpenScreenActivity">
+
+    <TextView
+        android:id="@+id/fullscreen_Logo_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/text_opening_title"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="100dp" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar_openingScreen"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Loading..."
+        android:id="@+id/text_Loading"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="150dp" />
+
+</FrameLayout>
