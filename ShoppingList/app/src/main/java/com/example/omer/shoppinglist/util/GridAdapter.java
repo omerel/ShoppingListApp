@@ -1,4 +1,4 @@
-package com.example.omer.shoppinglist;
+package com.example.omer.shoppinglist.util;
 
 /**
  * Created by omer on 24/08/16.
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.omer.shoppinglist.R;
 
 public class GridAdapter extends BaseAdapter{
     private Context mContext;

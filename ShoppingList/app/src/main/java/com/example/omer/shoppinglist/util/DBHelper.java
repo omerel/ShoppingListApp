@@ -1,4 +1,4 @@
-package com.example.omer.shoppinglist;
+package com.example.omer.shoppinglist.util;
 
 import android.content.ContentValues;
 import android.content.Context;

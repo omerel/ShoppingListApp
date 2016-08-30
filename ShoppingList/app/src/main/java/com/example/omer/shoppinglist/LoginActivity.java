@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.omer.shoppinglist.util.DBHelper;
+
 /**
  * A login screen that offers login via email/password.
  */

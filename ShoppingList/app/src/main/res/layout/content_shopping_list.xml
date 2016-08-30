@@ -12,19 +12,44 @@
     tools:context=".ShoppingListActivity"
     tools:showIn="@layout/activity_shopping_list">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bread"
+        android:id="@+id/border_1"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"/>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:id="@+id/listView_bread" />
-    <ListView
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_bread"
+        android:layout_below="@id/border_1"/>
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:id="@+id/listView_baking"
+        android:layout_height="wrap_content"
+        android:text="Baking"
+        android:id="@+id/border_2"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"
         android:layout_below="@id/listView_bread"/>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:id="@+id/listView_cart"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_baking"
+        android:layout_below="@id/border_2"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cart"
+        android:id="@+id/border_3"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"
         android:layout_below="@id/listView_baking"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_cart"
+        android:layout_below="@id/border_3"/>
 
 </RelativeLayout>

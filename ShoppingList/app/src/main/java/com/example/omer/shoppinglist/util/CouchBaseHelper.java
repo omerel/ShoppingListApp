@@ -1,4 +1,4 @@
-package com.example.omer.shoppinglist;
+package com.example.omer.shoppinglist.util;
 
 import android.app.Application;
 import android.content.Context;
@@ -212,6 +212,54 @@ public class CouchBaseHelper extends android.app.Application {
 
         return query;
     }
+
+    // shows all the items in db in the selected category and in shoppping list
+    public Query createCategoryListInList(String category) {
+
+        final String m_category = category;
+
+        // update view or create new one
+        View view = mdb.getView("shopping_"+category);
+        view.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                if (m_category.equals(document.get("category")) &&
+                        (Boolean)document.get("in_list") &&
+                        !(Boolean)document.get("in_cart")) {
+                    emitter.emit(document, null);
+                }
+            }
+        }, "1");
+
+        Query query = view.createQuery();
+        query.setDescending(false);
+
+        return query;
+    }
+
+    // shows all the items in cart
+    public Query createItemsInCart(String category) {
+
+        final String m_category = category;
+
+        // update view or create new one
+        View view = mdb.getView("shopping_"+category);
+        view.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                if ((Boolean)document.get("in_list") &&
+                        (Boolean)document.get("in_cart")) {
+                    emitter.emit(document, null);
+                }
+            }
+        }, "1");
+
+        Query query = view.createQuery();
+        query.setDescending(false);
+
+        return query;
+    }
+
     // Add an item to shop list
     public void addToShopList(Document doc) throws CouchbaseLiteException {
         // verify that the document exist
@@ -222,6 +270,23 @@ public class CouchBaseHelper extends android.app.Application {
             Boolean status = (Boolean) properties.get("in_list");
             status = !status;
             properties.put("in_list",status);
+            // verify in_cart -> false
+            if (!status)
+                properties.put("in_cart",status);
+            doc.putProperties(properties);
+        }
+    }
+
+    // Add an item to shop list
+    public void addToCart(Document doc,boolean bool) throws CouchbaseLiteException {
+        // verify that the document exist
+        if (mdb.getExistingDocument(doc.getId()) != null){
+            Map<String, Object> properties = new HashMap<String, Object>();
+            properties.putAll(doc.getProperties());
+
+            Boolean status = (Boolean) properties.get("in_cart");
+            status = bool;
+            properties.put("in_cart",status);
             doc.putProperties(properties);
         }
     }
@@ -239,6 +304,8 @@ public class CouchBaseHelper extends android.app.Application {
             properties.put("name", itemName);
             properties.put("amount", amountCounter);
             properties.put("category", category);
+            if (!checked)
+                properties.put("in_cart",checked);
             doc.putProperties(properties);
             if (image != null)
                 attachImage(doc,image,itemName);

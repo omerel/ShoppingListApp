@@ -19,6 +19,8 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.Query;
+import com.example.omer.shoppinglist.util.CouchBaseHelper;
+import com.example.omer.shoppinglist.util.LiveQueryAdapter;
 
 import java.io.IOException;
 
@@ -69,7 +71,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
                     goToCategories();
                     break;
                 case R.id.button_backToShoppingList:
-                    dbHelper.deleteDataBase();
+//                    dbHelper.deleteDataBase();
                     goToShoppingList();
                     break;
                 case R.id.button_add_item_to_list:
@@ -90,16 +92,6 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
             dbHelper.addItem(chosenCategory, itemName);
             ((EditText) findViewById(R.id.EditText_add_item)).setText("");
         }
-    }
-
-    private void goToCategories(){
-        Intent goToCategoriesActivity = new Intent(this,CategoriesActivity.class);
-        startActivity(goToCategoriesActivity);
-    }
-
-    private void goToShoppingList(){
-        Intent goToShoppingListActivity = new Intent(this,ShoppingListActivity.class);
-        startActivity(goToShoppingListActivity);
     }
 
     // list adapter for shoppingList for each category
@@ -165,6 +157,16 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
     public void goToEditItemActivity(Document doc) {
         Intent goToEditItem = new Intent(this,EditItemActivity.class);
          goToEditItem.putExtra("DOCUMENTID", doc.getId());
+        goToEditItem.putExtra("CONTEX", "addItem");
         startActivity(goToEditItem);
+    }
+    private void goToCategories(){
+        Intent goToCategoriesActivity = new Intent(this,CategoriesActivity.class);
+        startActivity(goToCategoriesActivity);
+    }
+
+    private void goToShoppingList(){
+        Intent goToShoppingListActivity = new Intent(this,ShoppingListActivity.class);
+        startActivity(goToShoppingListActivity);
     }
 }

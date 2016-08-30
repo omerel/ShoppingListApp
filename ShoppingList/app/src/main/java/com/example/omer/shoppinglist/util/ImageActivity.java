@@ -1,10 +1,12 @@
-package com.example.omer.shoppinglist;
+package com.example.omer.shoppinglist.util;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.omer.shoppinglist.R;
 
 public class ImageActivity extends AppCompatActivity {
 

@@ -1,11 +1,7 @@
 package com.example.omer.shoppinglist;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
+import com.example.omer.shoppinglist.util.CouchBaseHelper;
+import com.example.omer.shoppinglist.util.ImageActivity;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class EditItemActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +43,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
     private int amountCounter;
     private Bitmap pictureItem = null;
-    private SharedPreferences sharedPref;
+    private String contex;
 
     private String[] categories = {
             "Baking",
@@ -108,6 +104,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
         // get docID Intent
         docId = getIntent().getStringExtra("DOCUMENTID");
+        contex = getIntent().getStringExtra("CONTEX");
 
         // get document;
         doc = dbHelper.getDocument(docId);
@@ -156,19 +153,28 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 } catch (CouchbaseLiteException e) {
                     e.printStackTrace();
                 }
-                goToAddItemToList(lastCategory);
+                if(contex.equals("shoppingList"))
+                    goToShoppingList();
+                else
+                    goToAddItemToList(lastCategory);
                 Toast.makeText(EditItemActivity.this, "Saved" , Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.button_cancel_changes:
                 Toast.makeText(EditItemActivity.this, "Canceled" , Toast.LENGTH_SHORT).show();
-                goToAddItemToList(lastCategory);
+                if(contex.equals("shoppingList"))
+                    goToShoppingList();
+                else
+                    goToAddItemToList(lastCategory);
                 break;
 
             case R.id.button_delete_item:
                 dbHelper.deleteDocument(doc);
                 Toast.makeText(EditItemActivity.this, "Item deleted" , Toast.LENGTH_SHORT).show();
-                goToAddItemToList(lastCategory);
+                if(contex.equals("shoppingList"))
+                    goToShoppingList();
+                else
+                    goToAddItemToList(lastCategory);
                 break;
 
         }
@@ -208,6 +214,11 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         Intent goToImageActivity = new Intent(this,ImageActivity.class);
         goToImageActivity.putExtra("PICTURE",pic);
         startActivity(goToImageActivity);
+    }
+
+    private void goToShoppingList(){
+        Intent goToShoppingListActivity = new Intent(this,ShoppingListActivity.class);
+        startActivity(goToShoppingListActivity);
     }
 
 
