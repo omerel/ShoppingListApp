@@ -89,4 +89,6 @@
     <string name="text_amount">Amount :</string>
     <string name="button_save_changes">save changes</string>
     <string name="button_cancel_changes">cancel changes</string>
+    <string name="button_change_image">Change image</string>
+    <string name="button_take_pictre">take pictre</string>
 </resources>

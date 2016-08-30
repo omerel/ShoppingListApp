@@ -144,7 +144,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    goToEtitItemActivity(doc);
+                    goToEditItemActivity(doc);
                 }
             });
 
@@ -162,9 +162,9 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
         }
 
     }
-    public void goToEtitItemActivity(Document doc) {
-        Intent goToEtitItem = new Intent(this,EditItemActivity.class);
-         goToEtitItem.putExtra("DOCUMENTID", doc.getId());
-        startActivity(goToEtitItem);
+    public void goToEditItemActivity(Document doc) {
+        Intent goToEditItem = new Intent(this,EditItemActivity.class);
+         goToEditItem.putExtra("DOCUMENTID", doc.getId());
+        startActivity(goToEditItem);
     }
 }

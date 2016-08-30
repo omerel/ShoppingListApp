@@ -1,6 +1,11 @@
 package com.example.omer.shoppinglist;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +37,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private EditText itemName ;
     private Button deleteItem;
     private ImageButton itemImage;
+    private Button takePicture;
     private TextView amount;
     private Button buttonPlus;
     private Button buttonMinus;
@@ -40,6 +46,8 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private ArrayAdapter<String> categoryAdapter;
 
     private int amountCounter;
+    private Bitmap pictureItem = null;
+    private SharedPreferences sharedPref;
 
     private String[] categories = {
             "Baking",
@@ -72,6 +80,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         buttonMinus = (Button)findViewById(R.id.button_count_minus);
         saveChanges = (Button)findViewById(R.id.button_save_changes);
         cancelChanges = (Button)findViewById(R.id.button_cancel_changes);
+        takePicture = (Button)findViewById(R.id.button_take_picture);
 
 
         categoryAdapter = new ArrayAdapter<String>(EditItemActivity.this,android.R.layout.simple_spinner_item,categories);
@@ -86,6 +95,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         buttonMinus.setOnClickListener(this);
         saveChanges.setOnClickListener(this);
         cancelChanges.setOnClickListener(this);
+        takePicture.setOnClickListener(this);
 
         // connect to CB data base
         try {
@@ -107,7 +117,11 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         itemName.setText((String)doc.getProperty("name"));
         spinnerCategory.setSelection(checkSpinnerSelction());
         amountCounter = (int)doc.getProperty("amount");
-        amount.setText(String.valueOf( amountCounter ) );
+        amount.setText(String.valueOf( amountCounter ));
+
+        pictureItem = dbHelper.getAttachment(doc,(String)doc.getProperty("name"));
+        if (pictureItem != null)
+            itemImage.setImageBitmap(pictureItem);
     }
 
     @Override
@@ -128,13 +142,17 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.imageButton_item:
-            //TODO imageButton
+                goToImageActivity(pictureItem);
+                break;
+
+            case R.id.button_take_picture:
+                takePicture();
                 break;
 
             case R.id.button_save_changes:
                 try {
                     dbHelper.updateItemProperties(doc,checkBoxInList.isChecked(),itemName.getText().toString(),
-                            amountCounter,categories[spinnerCategory.getSelectedItemPosition()]);
+                            amountCounter,categories[spinnerCategory.getSelectedItemPosition()],pictureItem);
                 } catch (CouchbaseLiteException e) {
                     e.printStackTrace();
                 }
@@ -156,6 +174,21 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void takePicture() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            pictureItem = (Bitmap) data.getExtras().get("data");
+            itemImage.setImageBitmap(pictureItem);
+        }
+
+    }
+
     private int checkSpinnerSelction(){
         String category = (String)doc.getProperty("category");
 
@@ -171,5 +204,11 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         goToAddItemToList.putExtra("CATEGORY",category);
         startActivity(goToAddItemToList);
     }
+    public void goToImageActivity(Bitmap pic) {
+        Intent goToImageActivity = new Intent(this,ImageActivity.class);
+        goToImageActivity.putExtra("PICTURE",pic);
+        startActivity(goToImageActivity);
+    }
+
 
 }

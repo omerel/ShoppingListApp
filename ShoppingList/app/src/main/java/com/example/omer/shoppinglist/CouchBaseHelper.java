@@ -1,6 +1,9 @@
 package com.example.omer.shoppinglist;
 
+import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 
 import com.couchbase.lite.Attachment;
@@ -15,7 +18,10 @@ import com.couchbase.lite.Revision;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
 import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.util.Log;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -114,6 +120,39 @@ public class CouchBaseHelper extends android.app.Application {
     }
     */
 
+    public void attachImage(Document doc, Bitmap image,String itemName) {
+        if (doc == null || image == null) return;
+
+        UnsavedRevision revision = doc.createRevision();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+        revision.setAttachment("pic_"+itemName, "image/jpg", in);
+        try {
+            revision.save();
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Bitmap getAttachment(Document doc,String imageName) {
+
+        Attachment attachment = doc.getCurrentRevision().getAttachment("pic_" + imageName);
+        if (attachment == null)
+            return null;
+
+        Bitmap image = null;
+        InputStream is = null;
+        try {
+            is = attachment.getContent();
+            image = BitmapFactory.decodeStream(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return image;
+    }
+
     // Read attachment from document. if not exist return null
     public Drawable readAttachment(String docId,String attachmentName){
 
@@ -188,7 +227,9 @@ public class CouchBaseHelper extends android.app.Application {
     }
 
 
-    public void updateItemProperties(Document doc,boolean checked, String itemName, int amountCounter, String category) throws CouchbaseLiteException {
+    public void updateItemProperties(Document doc,
+                                     boolean checked, String itemName, int amountCounter,
+                                     String category,Bitmap image) throws CouchbaseLiteException {
         // verify that the document exist
         if (mdb.getExistingDocument(doc.getId()) != null) {
             Map<String, Object> properties = new HashMap<String, Object>();
@@ -199,6 +240,8 @@ public class CouchBaseHelper extends android.app.Application {
             properties.put("amount", amountCounter);
             properties.put("category", category);
             doc.putProperties(properties);
+            if (image != null)
+                attachImage(doc,image,itemName);
         }
     }
 
