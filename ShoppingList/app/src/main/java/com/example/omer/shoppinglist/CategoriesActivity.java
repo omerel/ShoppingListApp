@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 
 
-public class AddToListActivity extends AppCompatActivity {
+public class CategoriesActivity extends AppCompatActivity {
 
     GridView grid;
-    String[] categories = {
+     String[] categories = {
             "Baking",
             "Bread",
             "Canned",
@@ -46,9 +46,9 @@ public class AddToListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_to_list);
+        setContentView(R.layout.activity_categories);
 
-        CustomGrid adapter = new CustomGrid(AddToListActivity.this, categories, imageId);
+        GridAdapter adapter = new GridAdapter(CategoriesActivity.this, categories, imageId);
         grid=(GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,13 +56,13 @@ public class AddToListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(AddToListActivity.this, "You Clicked at " +categories[+ position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoriesActivity.this, "You Clicked at " +categories[+ position], Toast.LENGTH_SHORT).show();
                 goToAddItemToList(categories[+position]);
             }
         });
     }
     public void goToAddItemToList(String category) {
-        Intent goToAddItemToList = new Intent(this,AddItemToList.class);
+        Intent goToAddItemToList = new Intent(this,AddItemToListActivity.class);
         goToAddItemToList.putExtra("CATEGORY",category);
         startActivity(goToAddItemToList);
     }

@@ -13,7 +13,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private String user;
 
     public void goToAddToListActivity() {
-        Intent goToAddToListActivity = new Intent(this,AddToListActivity.class);
+        Intent goToAddToListActivity = new Intent(this,CategoriesActivity.class);
         startActivity(goToAddToListActivity);
     }
 

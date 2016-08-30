@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.omer.shoppinglist.EditItemActivity">
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/text_item_name"
+        android:id="@+id/textView_item_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="50dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_item_name"
+        android:hint="Enter new name"
+        android:layout_alignBottom="@+id/textView_item_name"
+        android:layout_toRightOf="@+id/textView_item_name" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/text_item_category"
+        android:id="@+id/textView_item_category"
+        android:layout_below="@+id/textView_item_name"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:id="@+id/spinner_choose_category"
+        android:layout_alignBottom="@+id/textView_item_category"
+        android:layout_toRightOf="@+id/textView_item_category"
+        >
+    </Spinner>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/text_add_item_to_list"
+        android:id="@+id/textView_item_addToList"
+        android:layout_below="@+id/textView_item_category"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox_add_item_to_list"
+        android:layout_alignBottom="@+id/textView_item_addToList"
+        android:layout_toEndOf="@+id/textView_item_addToList" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/text_amount"
+        android:id="@+id/textView_item_amount"
+        android:layout_below="@+id/textView_item_addToList"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp"
+        android:text="13"
+        android:id="@+id/textView_item_amount_number"
+        android:layout_toRightOf="@id/textView_item_amount"
+        android:layout_below="@+id/textView_item_addToList"
+        android:paddingTop="10dp"/>
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="-"
+        android:textSize="30sp"
+        android:id="@+id/button_count_minus"
+        android:layout_toRightOf="@id/textView_item_amount_number"
+        android:layout_below="@+id/textView_item_addToList"
+        android:layout_marginLeft="50dp"/>
+
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="+"
+        android:textSize="30sp"
+        android:id="@+id/button_count_plus"
+        android:layout_toRightOf="@id/button_count_minus"
+        android:layout_below="@+id/textView_item_addToList" />
+
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/start"
+        android:id="@+id/imageButton_item"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView_item_amount"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save_changes"
+        android:id="@+id/button_save_changes"
+        android:paddingTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageButton_item" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_cancel_changes"
+        android:id="@+id/button_cancel_changes"
+        android:paddingTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imageButton_item" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_item"
+        android:id="@+id/button_delete_item"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

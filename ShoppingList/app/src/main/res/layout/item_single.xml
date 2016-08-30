@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="5"
+    >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="40dp"
+        android:id="@+id/text_single_item"
+        android:textSize="25sp"
+        android:paddingLeft="5dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:text="@string/button_single_item_edit"
+        android:id="@+id/button_edit_item" />
 
 </LinearLayout>

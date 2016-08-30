@@ -13,26 +13,35 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".OpenScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_open_screen"
-            android:theme="@style/AppTheme">
+            android:label="@string/title_activity_open_screen" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+
+        <activity
+            android:name=".ShoppingListActivity"
+            android:label="@string/title_activity_shopping_list">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".CategoriesActivity" />
+
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".ShoppingListActivity"
-            android:label="@string/title_activity_shopping_list"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".AddToListActivity" />
-        <activity android:name=".AddItemToList"></activity>
+            android:name=".AddItemToListActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name=".EditItemActivity"
+            android:label="@string/title_activity_item_edit"/>
+
     </application>
 
 </manifest>
