@@ -1,11 +1,33 @@
 package com.example.omer.shoppinglist;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.UserHandle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +42,12 @@ import com.couchbase.lite.Query;
 import com.example.omer.shoppinglist.util.CouchBaseHelper;
 import com.example.omer.shoppinglist.util.LiveQueryAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -30,17 +57,19 @@ public class ShoppingListActivity extends AppCompatActivity {
     private ListAdapter mAdapter_bread = null;
     private ListAdapter mAdapter_baking = null;
     private ListAdapter mAdapter_cart = null;
-
+    private ListAdapter mAdapter = null;
 
     // all queries
     private Query query_bread;
     private Query query_baking;
     private Query query_cart;
+    private Query query;
 
     // all lsitView
     private ListView listView_bread;
     private ListView listView_baking;
     private ListView listView_cart;
+    private ListView listView;
 
 
     @Override
@@ -73,7 +102,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         }
 
         //initilaize queries and listViews for each category
-
+/*
         //bread
         query_bread = dbHelper.createCategoryListInList("Bread");
         mAdapter_bread = new ListAdapter(this, query_bread.toLiveQuery());
@@ -85,12 +114,26 @@ public class ShoppingListActivity extends AppCompatActivity {
         mAdapter_baking = new ListAdapter(this, query_baking.toLiveQuery());
         listView_baking = (ListView) findViewById(R.id.listView_baking);
         listView_baking.setAdapter(mAdapter_baking);
-
-        //baking
+*/
+        //cart
         query_cart = dbHelper.createItemsInCart("Cart");
         mAdapter_cart = new ListAdapter(this, query_cart.toLiveQuery());
         listView_cart = (ListView) findViewById(R.id.listView_cart);
         listView_cart.setAdapter(mAdapter_cart);
+
+        query = dbHelper.createCategoryListInList("Bread");
+        mAdapter = new ListAdapter(this, query.toLiveQuery());
+        listView = (ListView) findViewById(R.id.listView_bread);
+        listView.setAdapter(mAdapter);
+
+        query = dbHelper.createCategoryListInList("Baking");
+        mAdapter = new ListAdapter(this, query.toLiveQuery());
+        listView = (ListView) findViewById(R.id.listView_baking);
+        listView.setAdapter(mAdapter);
+
+
+
+       // ListView l = new ListView()
 
     }
 
@@ -165,5 +208,4 @@ public class ShoppingListActivity extends AppCompatActivity {
         Intent goToAddToListActivity = new Intent(this,CategoriesActivity.class);
         startActivity(goToAddToListActivity);
     }
-
 }

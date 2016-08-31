@@ -116,8 +116,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_save_changes"
-        android:id="@+id/button_save_changes"
+        android:text="@string/delete_item"
+        android:id="@+id/button_delete_item"
         android:paddingTop="10dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/imageButton_item" />
@@ -134,8 +134,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/delete_item"
-        android:id="@+id/button_delete_item"
+        android:text="@string/button_save_changes"
+        android:id="@+id/button_save_changes"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

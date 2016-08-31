@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
+import com.example.omer.shoppinglist.util.CategoriesSource;
 import com.example.omer.shoppinglist.util.CouchBaseHelper;
 import com.example.omer.shoppinglist.util.ImageActivity;
 
@@ -45,21 +46,6 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private Bitmap pictureItem = null;
     private String contex;
 
-    private String[] categories = {
-            "Baking",
-            "Bread",
-            "Canned",
-            "Cleaning",
-            "Drinks",
-            "Fruits",
-            "Health And Beauty",
-            "Meat",
-            "Milk And Dairy",
-            "Spices",
-            "Other",
-            "Favorite"
-    } ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +65,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         takePicture = (Button)findViewById(R.id.button_take_picture);
 
 
-        categoryAdapter = new ArrayAdapter<String>(EditItemActivity.this,android.R.layout.simple_spinner_item,categories);
+        categoryAdapter = new ArrayAdapter<String>(EditItemActivity.this,android.R.layout.simple_spinner_item,CategoriesSource.categories);
         spinnerCategory.setAdapter(categoryAdapter);
 
         // make layout clickable
@@ -149,7 +135,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
             case R.id.button_save_changes:
                 try {
                     dbHelper.updateItemProperties(doc,checkBoxInList.isChecked(),itemName.getText().toString(),
-                            amountCounter,categories[spinnerCategory.getSelectedItemPosition()],pictureItem);
+                            amountCounter, CategoriesSource.categories[spinnerCategory.getSelectedItemPosition()],pictureItem);
                 } catch (CouchbaseLiteException e) {
                     e.printStackTrace();
                 }
@@ -198,8 +184,8 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private int checkSpinnerSelction(){
         String category = (String)doc.getProperty("category");
 
-        for (int  i = 0; i < this.categories.length; i++ ){
-            if (category.equals(categories[i]))
+        for (int  i = 0; i < CategoriesSource.categories.length; i++ ){
+            if (category.equals(CategoriesSource.categories[i]))
                 return i;
         }
         return 0;
