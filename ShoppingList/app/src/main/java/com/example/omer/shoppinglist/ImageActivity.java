@@ -1,4 +1,4 @@
-package com.example.omer.shoppinglist.util;
+package com.example.omer.shoppinglist;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;

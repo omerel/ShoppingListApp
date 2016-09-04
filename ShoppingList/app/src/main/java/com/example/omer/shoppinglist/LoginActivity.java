@@ -39,9 +39,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void goToShppingListActivity(String email) {
         Intent goToShppingListActivity = new Intent(this,ShoppingListActivity.class);
+        email = email.replace("@","");
         goToShppingListActivity.putExtra("USER",email);
         startActivity(goToShppingListActivity);
     }
+
+    @Override
+    public void onBackPressed() {finish();}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -192,13 +197,6 @@ public class LoginActivity extends AppCompatActivity {
             Cursor res;
             String tempPassword;
 
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
             // retrieve password from DB
             res = dbHelper.getPassword(mEmail);

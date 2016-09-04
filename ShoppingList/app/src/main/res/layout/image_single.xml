@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp" >
+
+
+    <ImageView
+        android:layout_width="5dp"
+        android:id="@+id/shopping_list_category_selcted"
+        android:layout_height="35dp"
+        android:scaleType="fitXY"
+        android:background="#d450f5"
+        android:visibility="invisible"/>
+    <ImageView
+        android:src="@drawable/star"
+        android:id="@+id/shopping_list_category_not_empty"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:scaleType="fitXY"
+        android:background="#ffff"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/image_single"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:background="#ffff">
+    </ImageButton>
+
+
+</LinearLayout>

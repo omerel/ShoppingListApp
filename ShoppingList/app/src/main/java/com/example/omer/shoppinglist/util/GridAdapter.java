@@ -16,19 +16,19 @@ import com.example.omer.shoppinglist.R;
 
 public class GridAdapter extends BaseAdapter{
     private Context mContext;
-    private final String[] web;
-    private final int[] Imageid;
+    private final String[] category;
+    private final int[] imageId;
 
-    public GridAdapter(Context c, String[] web, int[] Imageid ) {
+    public GridAdapter(Context c, String[] category, int[] imageId ) {
         mContext = c;
-        this.Imageid = Imageid;
-        this.web = web;
+        this.imageId = imageId;
+        this.category = category;
     }
 
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return web.length;
+        return category.length;
     }
 
     @Override
@@ -49,19 +49,16 @@ public class GridAdapter extends BaseAdapter{
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        if (convertView == null) {
-
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.grid_single, null);
-            TextView textView = (TextView) grid.findViewById(R.id.grid_text);
-            ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
-            textView.setText(web[position]);
-            imageView.setImageResource(Imageid[position]);
-        } else {
-            grid = (View) convertView;
-        }
-
-        return grid;
+            if (convertView == null) {
+                grid = new View(mContext);
+                    grid = inflater.inflate(R.layout.grid_single, null);
+                    TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+                    ImageView imageView = (ImageView) grid.findViewById(R.id.grid_image);
+                    textView.setText(category[position]);
+                    imageView.setImageResource(imageId[position]);
+            } else {
+                grid = (View) convertView;
+            }
+            return grid;
     }
 }

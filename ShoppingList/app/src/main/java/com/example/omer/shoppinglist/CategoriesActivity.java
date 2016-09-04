@@ -16,13 +16,28 @@ public class CategoriesActivity extends AppCompatActivity {
 
     GridView grid;
 
+
+    @Override
+    public void onBackPressed() {
+        goToShoppingList();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+        final String category[] = new String[CategoriesSource.categories.length-1];
+        int categoryImg[] = new int[CategoriesSource.imageId.length-1];
 
-        GridAdapter adapter = new GridAdapter(CategoriesActivity.this, CategoriesSource.categories, CategoriesSource.imageId);
+        for(int i =0; i< category.length;i++){
+            category[i] = CategoriesSource.categories[i+1];
+            categoryImg[i] = CategoriesSource.imageId[i+1];
+
+        }
+
+
+        GridAdapter adapter = new GridAdapter(CategoriesActivity.this, category, categoryImg);
         grid=(GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -30,8 +45,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(CategoriesActivity.this, "You Clicked at " +CategoriesSource.categories[+ position], Toast.LENGTH_SHORT).show();
-                goToAddItemToList(CategoriesSource.categories[+position]);
+                goToAddItemToList(category[+position]);
             }
         });
     }
@@ -39,5 +53,9 @@ public class CategoriesActivity extends AppCompatActivity {
         Intent goToAddItemToList = new Intent(this,AddItemToListActivity.class);
         goToAddItemToList.putExtra("CATEGORY",category);
         startActivity(goToAddItemToList);
+    }
+    private void goToShoppingList(){
+        Intent goToShoppingListActivity = new Intent(this,ShoppingListActivity.class);
+        startActivity(goToShoppingListActivity);
     }
 }

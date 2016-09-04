@@ -14,6 +14,8 @@ import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.Revision;
 import com.couchbase.lite.UnsavedRevision;
 import com.couchbase.lite.View;
@@ -27,6 +29,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +54,7 @@ public class CouchBaseHelper extends android.app.Application {
             mdb.delete();
             return true;
     }
+
 
     // add specific document into data base
     public boolean addItem(String category, String name) throws CouchbaseLiteException {
@@ -105,20 +109,6 @@ public class CouchBaseHelper extends android.app.Application {
         doc.setExpirationDate(new_ttl);
         return true;
     }
-    /*
-    // Add an image in a callback after invoking the Android Camera activity
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        InputStream stream = null;
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            InputStream stream = getContentResolver().openInputStream(data.getData());
-            // Add or update an image to a document as a JPEG attachment:
-            Document doc = database.getDocument("Robin");
-            UnsavedRevision newRev = doc.getCurrentRevision().createRevision();
-            newRev.setAttachment("photo.jpg", "image/jpeg", stream);
-            newRev.save();
-        }
-    }
-    */
 
     public void attachImage(Document doc, Bitmap image,String itemName) {
         if (doc == null || image == null) return;
@@ -249,7 +239,7 @@ public class CouchBaseHelper extends android.app.Application {
             public void map(Map<String, Object> document, Emitter emitter) {
                 if ((Boolean)document.get("in_list") &&
                         (Boolean)document.get("in_cart")) {
-                    emitter.emit(document, null);
+                    emitter.emit(document, document);
                 }
             }
         }, "1");
@@ -309,6 +299,28 @@ public class CouchBaseHelper extends android.app.Application {
             doc.putProperties(properties);
             if (image != null)
                 attachImage(doc,image,itemName);
+        }
+    }
+
+    // shows all the items in cart
+    public void cleanitemsInCart(String category) throws CouchbaseLiteException {
+
+        Query query = createItemsInCart(category);
+        Document doc;
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        query.setMapOnly(true);
+        QueryEnumerator result = query.run();
+        for (Iterator<QueryRow> it = result; it.hasNext(); ) {
+            QueryRow row = it.next();
+
+
+            doc = (Document) row.getDocument();
+            properties.putAll(doc.getProperties());
+            properties.put("in_cart",Boolean.FALSE);
+            properties.put("in_list",Boolean.FALSE);
+
+            doc.putProperties(properties);
         }
     }
 

@@ -7,7 +7,10 @@ import com.example.omer.shoppinglist.R;
  */
 public class CategoriesSource {
 
+    private static String userDb = null;
+
     public static String categories[] = {
+            "Baking",
             "Baking",
             "Bread",
             "Canned",
@@ -22,6 +25,7 @@ public class CategoriesSource {
     } ;
     public static int[] imageId = {
             R.drawable.baking_item,
+            R.drawable.baking_item,
             R.drawable.bread_item,
             R.drawable.canned_item,
             R.drawable.cleaning_item,
@@ -33,4 +37,12 @@ public class CategoriesSource {
             R.drawable.spices_item,
             R.drawable.other_item
     };
+
+    public static String getUserDB(){
+        return userDb;
+    }
+    public static void setUserDB(String name){
+         userDb =  name;
+    }
+
 }

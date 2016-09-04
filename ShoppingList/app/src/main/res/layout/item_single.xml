@@ -11,12 +11,12 @@
         android:textSize="25sp"
         android:paddingLeft="5dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        android:src="@drawable/edit_item"
+        android:background="#ffff"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="40dp"
-        android:text="@string/button_single_item_edit"
         android:id="@+id/button_edit_item" />
 
 </LinearLayout>

@@ -18,7 +18,7 @@
         android:id="@+id/textView_item_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:paddingTop="50dp"/>
+        android:paddingTop="20dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -83,6 +83,8 @@
         android:paddingTop="10dp"/>
 
     <Button
+
+        android:gravity="center_vertical|clip_horizontal"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:text="-"
@@ -94,6 +96,7 @@
 
 
     <Button
+        android:gravity="center_vertical|clip_horizontal"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:text="+"
@@ -103,9 +106,10 @@
         android:layout_below="@+id/textView_item_addToList" />
 
     <ImageButton
+        android:background="#ffffff"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/start"
+        android:src="@drawable/cart"
         android:id="@+id/imageButton_item"
         android:scaleType="fitXY"
         android:layout_centerVertical="true"
@@ -114,6 +118,7 @@
         android:layout_marginTop="10dp"/>
 
     <Button
+        android:textColor="#ff0000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete_item"
@@ -132,6 +137,7 @@
         android:layout_below="@+id/imageButton_item" />
 
     <Button
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_save_changes"
@@ -139,10 +145,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/photo_camera"
+        android:layout_marginLeft="20dp"
+        android:background="#ffff"
         android:text="@string/button_take_pictre"
         android:id="@+id/button_take_picture"
         android:layout_above="@+id/button_cancel_changes"

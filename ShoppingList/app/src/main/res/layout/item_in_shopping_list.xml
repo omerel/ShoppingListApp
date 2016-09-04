@@ -3,10 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="5">
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkbox_add_item_to_cart"/>
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/image_item_in_shopping_list"
+        android:src="@drawable/photo_camera"
+        android:background="#ffff"/>
     <TextView
         android:layout_width="0dp"
         android:layout_weight="5"
@@ -14,4 +17,11 @@
         android:id="@+id/text_item_in_shopping_list"
         android:textSize="25sp"
         android:paddingLeft="5dp" />
+    <CheckBox
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/checkbox_add_item_to_cart"
+        android:scaleX="1.5"
+        android:scaleY="1.5"/>
+
 </LinearLayout>

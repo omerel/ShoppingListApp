@@ -20,18 +20,20 @@
         <activity
             android:name=".OpenScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_open_screen" />
+            android:label="@string/title_activity_open_screen" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".ShoppingListActivity"
             android:label="@string/title_activity_shopping_list">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".CategoriesActivity" />
         <activity
@@ -40,7 +42,7 @@
         <activity
             android:name=".EditItemActivity"
             android:label="@string/title_activity_item_edit" />
-        <activity android:name=".util.ImageActivity"></activity>
+        <activity android:name=".ImageActivity"></activity>
     </application>
 
 </manifest>

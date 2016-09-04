@@ -18,7 +18,6 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
 import com.example.omer.shoppinglist.util.CategoriesSource;
 import com.example.omer.shoppinglist.util.CouchBaseHelper;
-import com.example.omer.shoppinglist.util.ImageActivity;
 
 import java.io.IOException;
 
@@ -34,7 +33,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
     private EditText itemName ;
     private Button deleteItem;
     private ImageButton itemImage;
-    private Button takePicture;
+    private ImageButton takePicture;
     private TextView amount;
     private Button buttonPlus;
     private Button buttonMinus;
@@ -62,7 +61,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
         buttonMinus = (Button)findViewById(R.id.button_count_minus);
         saveChanges = (Button)findViewById(R.id.button_save_changes);
         cancelChanges = (Button)findViewById(R.id.button_cancel_changes);
-        takePicture = (Button)findViewById(R.id.button_take_picture);
+        takePicture = (ImageButton)findViewById(R.id.button_take_picture);
 
 
         categoryAdapter = new ArrayAdapter<String>(EditItemActivity.this,android.R.layout.simple_spinner_item,CategoriesSource.categories);
@@ -81,7 +80,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
 
         // connect to CB data base
         try {
-            dbHelper = new CouchBaseHelper(EditItemActivity.this,"shopping_list_db");
+            dbHelper = new CouchBaseHelper(EditItemActivity.this,CategoriesSource.getUserDB());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CouchbaseLiteException e) {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.Query;
+import com.example.omer.shoppinglist.util.CategoriesSource;
 import com.example.omer.shoppinglist.util.CouchBaseHelper;
 import com.example.omer.shoppinglist.util.LiveQueryAdapter;
 
@@ -31,6 +33,10 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
     private String chosenCategory = null;
     private ListAdapter mAdapter = null;
 
+
+    @Override
+    public void onBackPressed() {}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +44,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
 
         // sign buttons to onClickListener
         ((Button) findViewById(R.id.button_backToCategories)).setOnClickListener(this);
-        ((Button) findViewById(R.id.button_add_item_to_list)).setOnClickListener(this);
+        ((ImageButton) findViewById(R.id.button_add_item_to_list)).setOnClickListener(this);
         ((Button) findViewById(R.id.button_backToShoppingList)).setOnClickListener(this);
 
         // Get the name of the category
@@ -46,7 +52,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
 
         // connect to CB data base
         try {
-            dbHelper = new CouchBaseHelper(AddItemToListActivity.this,"shopping_list_db");
+            dbHelper = new CouchBaseHelper(AddItemToListActivity.this, CategoriesSource.getUserDB());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CouchbaseLiteException e) {
@@ -111,7 +117,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
 
             // bind objects with layout
             final TextView text = (TextView) convertView.findViewById(R.id.text_single_item);
-            final Button editButton = (Button) convertView.findViewById(R.id.button_edit_item);
+            final ImageButton editButton = (ImageButton) convertView.findViewById(R.id.button_edit_item);
 
             // get the current document
             final Document doc = (Document) getItem(position);
@@ -129,7 +135,7 @@ public class AddItemToListActivity extends AppCompatActivity implements View.OnC
 
             // paint it em if it  in Shop list
             if (inList)
-                text.setBackgroundColor(Color.YELLOW);
+                text.setBackgroundColor(Color.argb(100,255,161,167));
             else
                 text.setBackgroundColor(Color.WHITE);
 

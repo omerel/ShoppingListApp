@@ -21,10 +21,11 @@ public class DBHelper extends SQLiteOpenHelper{
         @Override
         public void onCreate(SQLiteDatabase db) {
             // TODO Auto-generated method stub
+
             db.execSQL(
-                    "create table users " +
-                            "(id integer primary key email text password text)"
+                    " CREATE TABLE `users` (`email`	TEXT,`password`	TEXT,PRIMARY KEY(email))"
             );
+
         }
 
         @Override

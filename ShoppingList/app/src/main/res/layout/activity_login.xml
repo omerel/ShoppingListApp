@@ -11,6 +11,24 @@
     tools:context="com.example.omer.shoppinglist.LoginActivity">
 
     <!-- Login progress -->
+    <TextView
+        android:id="@+id/signin_title_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="Sign in"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:layout_gravity="center|top" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/cart"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -74,6 +92,5 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </ScrollView>
 </LinearLayout>
